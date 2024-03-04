@@ -12,7 +12,7 @@ pipeline {
         stage('DockerHub Push'){
             steps{
                 sh "podman login -u vbruno175 -p Wasdxc#123"
-                sh "podman push vbruno175/vbruno175:${DOCKER_TAG}"
+                sh "podman push vbruno175/vbruno175:${DOCKER_TAG} --tls-verify=false"
                 }
         }
         stage('Deploy to DevServer'){
