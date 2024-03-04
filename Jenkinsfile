@@ -6,17 +6,17 @@ pipeline {
     stages{
         stage('Build Docker Image'){
             steps{
-                sh "podman build . -t vbruno175/vbruno175:${DOCKER_TAG} --tls-verify=false"
+                sh "podman build . -t 192.168.233.133:32118/vbruno175:${DOCKER_TAG}"
             }
         }
         stage('DockerHub Push'){
             steps{
-                sh "podman push vbruno175/vbruno175:${DOCKER_TAG} --tls-verify=false"
+                sh "podman push 192.168.233.133:32118/vbruno175:${DOCKER_TAG}"
                 }
         }
         stage('Deploy to DevServer'){
             steps{
-		sh "podman run -d -p 8089:8080 --name=vbruno175 vbruno175/vbruno175:${DOCKER_TAG} --tls-verify=false"
+		sh "podman run -d -p 8089:8080 --name=vbruno175 192.168.233.133:32118/vbruno175:${DOCKER_TAG}"
             }
         }
     }
