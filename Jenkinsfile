@@ -16,7 +16,7 @@ pipeline {
         }
         stage('Deploy to DevServer'){
             steps{
-		sh "podman run -d -p 8089:8080 --name=vbruno175 192.168.233.133:32118/vbruno175:${DOCKER_TAG}"
+		sh "podman run -d -p 8089:8080 --name=vbruno 192.168.233.133:32118/vbruno175:${DOCKER_TAG}"
             }
         }
     }
