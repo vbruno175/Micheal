@@ -3,7 +3,7 @@ Hari works at banglore
 Hari works on DevOps
 Hari is using Docker in his project
 It is likely to rain today
-Learning git diff command
+Learning git diff commandd
 Learning git tags
 Learning branching strategies
 some chage
