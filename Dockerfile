@@ -1,4 +1,4 @@
-FROM node:16
+FROM localhost/local1/docker.io/library/node:16
 
 
 
