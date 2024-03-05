@@ -20,11 +20,6 @@ pipeline {
 		sh "./changeTag.sh ${DOCKER_TAG}"    
 		sh "kubectl apply -f *.yml"
             }
-	     steps{
-		     withCredentials([string(credentialsId: 'JENKINS_SECRET', variable: 'TOKEN')]) {
-                      sh "kubectl apply -f *.yml --token $TOKEN"
-                  }
-	     }	
         }
     }	    
 }
