@@ -20,7 +20,6 @@ pipeline {
 		sh "kubectl apply -f ."
             }
         }
-    }
 }
 
 def getDockerTag(){
