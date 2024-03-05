@@ -1,4 +1,5 @@
 pipeline {
+     agent any
     environment{
         DOCKER_TAG = getDockerTag()
     }
