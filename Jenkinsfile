@@ -20,12 +20,6 @@ pipeline {
 		sh "./changeTag.sh ${DOCKER_TAG}"
             }
         }
-	     stage('apply to kubernetes'){
-            	     steps{
-                      sh "kubectl apply -f *.yml"
-                  }
-	     }	
-        }
     }	    
 }
 
