@@ -14,12 +14,18 @@ pipeline {
                 sh "podman push 192.168.233.133:32118/vbruno175:${DOCKER_TAG}"
                 }
         }
-        stage('Deploy to Kubernetes'){
+        stage('change Tag'){
             steps{
 		sh "chmod +x changeTag.sh"
-		sh "./changeTag.sh ${DOCKER_TAG}"    
-		sh "kubectl apply -f *.yml"
+		sh "./changeTag.sh ${DOCKER_TAG}"
             }
+        }
+	     stage('apply to kubernetes'){
+            	     steps{
+		     withCredentials([string(credentialsId: 'JENKINS_SECRET', variable: 'TOKEN')]) {
+                      sh "kubectl apply -f *.yml --token $TOKEN"
+                  }
+	     }	
         }
     }	    
 }
