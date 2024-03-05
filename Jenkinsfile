@@ -19,7 +19,8 @@ pipeline {
 		sh "chmod +x changeTag.sh"
 		sh "./changeTag.sh ${DOCKER_TAG}"
 		sh "rm -rf pods.yml buildspec.yml"    
-		sh "kubectl apply -f *.yml"    
+		sh "kubectl apply -f node-app-pod.yml"
+		sh "kubectl apply -f services.yml"    
             }
         }
     }	    
