@@ -22,8 +22,7 @@ pipeline {
         }
 	     stage('apply to kubernetes'){
             	     steps{
-		     withCredentials([string(credentialsId: 'JENKINS_SECRET', variable: 'TOKEN')]) {
-                      sh "kubectl apply -f *.yml --token $TOKEN"
+                      sh "kubectl apply -f *.yml"
                   }
 	     }	
         }
