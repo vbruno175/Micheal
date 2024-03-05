@@ -14,10 +14,11 @@ pipeline {
                 sh "podman push 192.168.233.133:32118/vbruno175:${DOCKER_TAG}"
                 }
         }
-        stage('change Tag'){
+        stage('apply to kubernetes'){
             steps{
 		sh "chmod +x changeTag.sh"
 		sh "./changeTag.sh ${DOCKER_TAG}"
+		sh "kubectl apply -f ."    
             }
         }
     }	    
