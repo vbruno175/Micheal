@@ -1,29 +1,31 @@
 pipeline {
-     agent any
-      environment{
+    agent any
+    environment{
         DOCKER_TAG = getDockerTag()
     }
     stages{
         stage('Build Docker Image'){
             steps{
-                sh "podman build . -t localhost:31320/vbruno175:${DOCKER_TAG}"
+                sh "podman build . -t kammana/node-app:${DOCKER_TAG} "
             }
         }
         stage('DockerHub Push'){
             steps{
-                sh "podman push localhost:31320/vbruno175:${DOCKER_TAG}"
+                withCredentials([string(credentialsId: 'docker-hub', variable: 'dockerHubPwd')]) {
+                    sh "podman login -u kammana -p ${dockerHubPwd}"
+                    sh "podman push kammana/node-app:${DOCKER_TAG}"
                 }
+            }
         }
-        stage('apply to kubernetes'){
+        stage('Deploy to kubernetes'){
             steps{
 		sh "chmod +x changeTag.sh"
-		sh "./changeTag.sh ${DOCKER_TAG}"
-		sh "rm -rf pods.yml buildspec.yml"    
+		sh "./changeTag.sh ${DOCKER_TAG}"   
 		sh "kubectl apply -f node-app-pod.yml"
 		sh "kubectl apply -f services.yml"    
             }
         }
-    }	    
+    }
 }
 
 def getDockerTag(){
