@@ -6,12 +6,12 @@ pipeline {
     stages{
         stage('Build Docker Image'){
             steps{
-                sh "podman build . -t 192.168.233.133:32118/vbruno175:${DOCKER_TAG}"
+                sh "podman build . -t 192.168.229.128:31320/vbruno175:${DOCKER_TAG}"
             }
         }
         stage('DockerHub Push'){
             steps{
-                sh "podman push 192.168.233.133:32118/vbruno175:${DOCKER_TAG}"
+                sh "podman push 192.168.229.128:31320/vbruno175:${DOCKER_TAG}"
                 }
         }
         stage('apply to kubernetes'){
