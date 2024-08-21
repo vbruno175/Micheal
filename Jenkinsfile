@@ -6,26 +6,24 @@ pipeline {
     stages{
         stage('Build Docker Image'){
             steps{
-                sh "podman build . -t kammana/node-app:${DOCKER_TAG} "
+                sh "podman build . -t localhost:31320/vbruno175:${DOCKER_TAG}"
             }
         }
         stage('DockerHub Push'){
             steps{
-                withCredentials([string(credentialsId: 'docker-hub', variable: 'dockerHubPwd')]) {
-                    sh "podman login -u kammana -p ${dockerHubPwd}"
-                    sh "podman push kammana/node-app:${DOCKER_TAG}"
+                sh "podman push localhost:31320/vbruno175:${DOCKER_TAG}"
                 }
-            }
         }
-        stage('Deploy to kubernetes'){
+        stage('apply to kubernetes'){
             steps{
 		sh "chmod +x changeTag.sh"
-		sh "./changeTag.sh ${DOCKER_TAG}"   
+		sh "./changeTag.sh ${DOCKER_TAG}"
+		sh "rm -rf pods.yml buildspec.yml"    
 		sh "kubectl apply -f node-app-pod.yml"
 		sh "kubectl apply -f services.yml"    
             }
         }
-    }
+    }	    
 }
 
 def getDockerTag(){
