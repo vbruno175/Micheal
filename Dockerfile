@@ -1,4 +1,4 @@
-FROM localhost:31320/node:16
+FROM 192.168.229.128:31320/node:16
 
 
 
