@@ -9,7 +9,7 @@ pipeline {
                 }
             }
         }
-
+    }
         stage('Build Docker Image') {
             steps {
                 sh "podman build . -t localhost:31320/vbruno175:${DOCKER_TAG}"
