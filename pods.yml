@@ -7,6 +7,6 @@ metadata:
 spec:
   containers:
     - name: nodeapp
-      image: 192.168.233.133:32118/vbruno175:tagVersion
+      image: 192.168.229.128:31320/vbruno175:tagVersion
       ports:
         - containerPort: 8080
